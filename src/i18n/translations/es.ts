@@ -82,6 +82,8 @@ export const es: Translations = {
     selectToTag: 'Seleccione texto para etiquetar manualmente',
     uploadDocx: 'Subir documento',
     uploadDocxSub: '.doc / .docx — formato preservado',
+    uploadXlsx: 'Subir hoja de cálculo',
+    uploadXlsxSub: '.xlsx — columnas y filas preservadas',
     pasteText: 'Pegar texto',
     pasteTextSub: 'Copie y pegue desde cualquier fuente',
     loadedFile: (name) => `Cargado: ${name}`,

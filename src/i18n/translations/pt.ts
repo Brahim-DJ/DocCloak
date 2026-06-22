@@ -82,6 +82,8 @@ export const pt: Translations = {
     selectToTag: 'Selecione texto para marcar manualmente',
     uploadDocx: 'Enviar documento',
     uploadDocxSub: '.doc / .docx — formatação será preservada',
+    uploadXlsx: 'Enviar planilha',
+    uploadXlsxSub: '.xlsx — colunas e linhas preservadas',
     pasteText: 'Colar texto',
     pasteTextSub: 'Copie e cole de qualquer fonte',
     loadedFile: (name) => `Carregado: ${name}`,

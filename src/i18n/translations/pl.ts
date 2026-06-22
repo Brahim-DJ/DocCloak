@@ -86,6 +86,8 @@ export const pl: Translations = {
     selectToTag: 'Zaznacz tekst, aby oznaczyć ręcznie',
     uploadDocx: 'Wgraj dokument',
     uploadDocxSub: '.doc / .docx — formatowanie zostanie zachowane',
+    uploadXlsx: 'Wgraj arkusz kalkulacyjny',
+    uploadXlsxSub: '.xlsx — kolumny i wiersze zachowane',
     pasteText: 'Wklej tekst',
     pasteTextSub: 'Skopiuj i wklej z dowolnego źródła',
     loadedFile: (name) => `Wczytano: ${name}`,

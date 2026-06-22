@@ -82,6 +82,8 @@ export const en: Translations = {
     selectToTag: 'Select text to mark manually',
     uploadDocx: 'Upload Document',
     uploadDocxSub: '.doc / .docx — formatting will be preserved',
+    uploadXlsx: 'Upload Spreadsheet',
+    uploadXlsxSub: '.xlsx — columns and rows preserved',
     pasteText: 'Paste Text',
     pasteTextSub: 'Copy and paste from any source',
     loadedFile: (name) => `Loaded: ${name}`,

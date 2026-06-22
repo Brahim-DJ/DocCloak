@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import type { DetectedEntity, EntityType, ReplacementEntry } from '../../core/types.ts';
 import { detectEntities, preloadModel, onDownloadProgress, setDetectionThreshold, getDetectionThreshold, getCustomLabels, setCustomLabels, switchProvider as engineSwitchProvider, getActiveProviderId, isRegexEnabled, setRegexEnabled, getRegexRegion, setRegexRegionSetting } from '../../core/engine.ts';
 import type { RegexRegionId } from '../../core/engine.ts';
@@ -7,6 +7,7 @@ import { AnonymizationSession } from '../../core/session.ts';
 import type { ReplacementMode } from '../../core/session.ts';
 import { readDocx, writeAnonymizedDocx, isLegacyDoc, isSupportedFile } from '../../core/docx.ts';
 import { readDocText, writeAnonymizedDoc } from '../../core/doc.ts';
+
 
 export function useAnonymizer() {
   const [inputText, setInputText] = useState('');
@@ -32,28 +33,10 @@ export function useAnonymizer() {
   const sessionRef = useRef(new AnonymizationSession());
   const latestRequestRef = useRef(0);
 
-  // Preload detection model in the background with progress tracking
-  useEffect(() => {
-    setModelLoading(true);
-
-    onDownloadProgress((downloaded, total) => {
-      setDownloadProgress({ downloaded, total });
-    });
-
-    preloadModel()
-      .then(() => {
-        setModelLoaded(true);
-        setModelLoading(false);
-        setDownloadProgress(null);
-        setCustomLabelsState(getCustomLabels());
-      })
-      .catch((err) => {
-        console.error('Model loading failed:', err);
-        setModelLoading(false);
-        setModelError(true);
-        setDownloadProgress(null);
-      });
-  }, []);
+  // Register download progress callback (called once, sets global handler)
+  onDownloadProgress((downloaded, total) => {
+    setDownloadProgress({ downloaded, total });
+  });
 
   const rebuildAnonymization = useCallback(
     (text: string, allEntities: DetectedEntity[], excluded: Set<number>) => {
@@ -66,9 +49,35 @@ export function useAnonymizer() {
     []
   );
 
-  const anonymize = useCallback(() => {
+  const anonymize = useCallback(async () => {
     const text = inputText;
     if (!text.trim()) return;
+    if (anonymizing) return;
+
+    // Lazy-load the model if not already loaded
+    if (!modelLoaded && !modelLoading) {
+      setModelLoading(true);
+      setModelError(false);
+      setDownloadProgress(null);
+      try {
+        await preloadModel();
+        setModelLoaded(true);
+        setModelLoading(false);
+        setDownloadProgress(null);
+        setCustomLabelsState(getCustomLabels());
+      } catch (err) {
+        console.error('[DocCloak] Model loading failed:', err);
+        setModelLoading(false);
+        setModelError(true);
+        setDownloadProgress(null);
+        return;
+      }
+    }
+
+    // Wait if model is currently loading (e.g., provider switch)
+    if (modelLoading) {
+      return;
+    }
 
     setAnonymizing(true);
     setDetectionError(null);
@@ -77,35 +86,27 @@ export function useAnonymizer() {
     const excluded = new Set<number>();
     setExcludedIndices(excluded);
 
-    // Detection runs in a Web Worker — no need to yield to the browser
-    detectEntities(text, (progress) => {
-      if (requestId === latestRequestRef.current) {
-        setDetectionProgress(progress);
-      }
-    })
-      .then((results) => {
+    try {
+      const results = await detectEntities(text, (progress) => {
         if (requestId === latestRequestRef.current) {
-          setEntities(results);
-          rebuildAnonymization(text, results, excluded);
-          setAnonymizing(false);
-          setDetectionProgress(null);
-          // Scroll the tool back into view in case the page has drifted.
-          // We target <main> which wraps the tool; falls back to no-op if not found.
-          const toolEl = document.querySelector('main');
-          if (toolEl) {
-            toolEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      })
-      .catch((err) => {
-        console.error('[DocCloak] Detection failed:', err);
-        if (requestId === latestRequestRef.current) {
-          setAnonymizing(false);
-          setDetectionProgress(null);
-          setDetectionError(err instanceof Error ? err.message : String(err));
+          setDetectionProgress(progress);
         }
       });
-  }, [inputText, rebuildAnonymization]);
+      if (requestId === latestRequestRef.current) {
+        setEntities(results);
+        rebuildAnonymization(text, results, excluded);
+        setAnonymizing(false);
+        setDetectionProgress(null);
+      }
+    } catch (err) {
+      console.error('[DocCloak] Detection failed:', err);
+      if (requestId === latestRequestRef.current) {
+        setAnonymizing(false);
+        setDetectionProgress(null);
+        setDetectionError(err instanceof Error ? err.message : String(err));
+      }
+    }
+  }, [inputText, modelLoaded, modelLoading, anonymizing, rebuildAnonymization]);
 
   const handleInputChange = useCallback((text: string) => {
     setInputText(text);

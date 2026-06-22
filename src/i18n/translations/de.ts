@@ -82,6 +82,8 @@ export const de: Translations = {
     selectToTag: 'Text markieren, um manuell zu taggen',
     uploadDocx: 'Dokument hochladen',
     uploadDocxSub: '.doc / .docx — Formatierung wird beibehalten',
+    uploadXlsx: 'Tabelle hochladen',
+    uploadXlsxSub: '.xlsx — Spalten und Zeilen bleiben erhalten',
     pasteText: 'Text einfügen',
     pasteTextSub: 'Aus beliebiger Quelle kopieren und einfügen',
     loadedFile: (name) => `Geladen: ${name}`,

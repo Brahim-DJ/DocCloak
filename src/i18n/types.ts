@@ -63,6 +63,8 @@ export interface Translations {
     selectToTag: string;
     uploadDocx: string;
     uploadDocxSub: string;
+    uploadXlsx: string;
+    uploadXlsxSub: string;
     pasteText: string;
     pasteTextSub: string;
     loadedFile: (name: string) => string;

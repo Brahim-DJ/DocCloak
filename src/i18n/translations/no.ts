@@ -82,6 +82,8 @@ export const no: Translations = {
     selectToTag: 'Merk tekst for å tagge manuelt',
     uploadDocx: 'Last opp dokument',
     uploadDocxSub: '.doc / .docx — formatering bevares',
+    uploadXlsx: 'Last opp regneark',
+    uploadXlsxSub: '.xlsx — kolonner og rader bevares',
     pasteText: 'Lim inn tekst',
     pasteTextSub: 'Kopier og lim inn fra hvilken som helst kilde',
     loadedFile: (name) => `Lastet: ${name}`,

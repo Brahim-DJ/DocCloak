@@ -2,6 +2,7 @@ import { TextInput } from './ui/components/TextInput.tsx';
 import { TextOutput } from './ui/components/TextOutput.tsx';
 import { EntityTable } from './ui/components/EntityTable.tsx';
 import { DeAnonymize } from './ui/components/DeAnonymize.tsx';
+import { ExcelTool } from './ui/components/ExcelTool.tsx';
 import { useAnonymizer } from './ui/hooks/useAnonymizer.ts';
 import { useTranslation } from './i18n/LanguageContext.tsx';
 import { languages } from './i18n/translations/index.ts';
@@ -11,12 +12,9 @@ import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import { Lock, Settings, ArrowRight, Languages, Check, Plus, X, ChevronDown, Info, FileText, Download, Github } from 'lucide-react';
-import logoSrc from './ui/assets/doc-cloak-logo-light.png';
-import { version } from '../package.json';
+import { Settings, ArrowRight, Languages, Check, Plus, X, ChevronDown, FileText, Download, Github } from 'lucide-react';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useToast } from './ui/components/Toast.tsx';
-import { Hero, Audience, HowItWorks, FAQ } from './ui/components/Landing.tsx';
 import { PROVIDERS, REGEX_REGIONS } from './core/engine.ts';
 import type { RegexRegionId } from './core/engine.ts';
 
@@ -68,23 +66,12 @@ export default function App() {
   } = useAnonymizer();
 
   const { showToast } = useToast();
+  const [activeTab, setActiveTab] = useState<'documents' | 'spreadsheets'>('spreadsheets');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [newLabelInput, setNewLabelInput] = useState('');
   const [labelsExpanded, setLabelsExpanded] = useState(false);
-  const [footerTooltipOpen, setFooterTooltipOpen] = useState(false);
   const clearSnapshotRef = useRef<{ text: string; anonymized: string; entities: typeof entities; entries: typeof entries } | null>(null);
   const [downloading, setDownloading] = useState(false);
-  const toolRef = useRef<HTMLElement>(null);
-  const scrollToTool = useCallback(() => {
-    toolRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, []);
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const handleDownloadDocx = useCallback(async () => {
     if (!exportDocx) return;
@@ -115,7 +102,7 @@ export default function App() {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         e.preventDefault();
-        if (inputText.trim() && modelLoaded && !anonymizing) {
+        if (inputText.trim() && !anonymizing) {
           anonymize();
         }
       }
@@ -157,14 +144,13 @@ export default function App() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="h-screen flex flex-col bg-background text-foreground">
       {/* Model download overlay */}
       {modelLoading && (
         <div className="fixed inset-0 z-40 bg-[#F9F9F7]/95 flex items-center justify-center">
           <Card className="max-w-sm w-full mx-6 border-[#111111] shadow-[4px_4px_0px_0px_#111111]">
             <CardContent className="pt-8 pb-8 text-center">
-              <img src={logoSrc} alt="DocCloak" className="h-14 mx-auto mb-4" />
-              <h2 className="font-serif text-xl tracking-tight uppercase mb-1">
+              <h2 className="font-serif text-xl tracking-tight uppercase mb-4">
                 <span className="font-bold text-[#111111]">Doc</span>
                 <span className="font-normal text-[#525252]">Cloak</span>
               </h2>
@@ -230,18 +216,12 @@ export default function App() {
       )}
 
       {/* Header */}
-      <header className={`sticky top-0 z-30 px-6 transition-all duration-200 backdrop-blur-md bg-[#F9F9F7]/85 ${scrolled ? 'py-2 border-b border-[#E5E5E0] shadow-[0_1px_0_0_rgba(17,17,17,0.04)]' : 'py-3 border-b border-transparent'}`}>
+      <header className="px-6 py-2 border-b border-[#E5E5E0] bg-[#F9F9F7]/85">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={logoSrc} alt="DocCloak" className={`transition-all duration-200 ${scrolled ? 'h-7' : 'h-9'}`} />
-            <div className="flex items-baseline gap-2">
-              <span className={`font-serif tracking-tight leading-none text-[#111111] font-medium transition-all duration-200 ${scrolled ? 'text-xl' : 'text-2xl'}`}>
-                DocCloak
-              </span>
-              <span className="text-[10px] text-muted-foreground font-mono hidden sm:inline">
-                v{version}
-              </span>
-            </div>
+          <div className="flex items-end gap-2">
+            <span className="font-serif text-lg tracking-tight text-[#111111] font-medium">
+              DocCloak
+            </span>
           </div>
           <div className="flex items-center gap-3">
             {/* Language switcher */}
@@ -251,8 +231,8 @@ export default function App() {
                   <Languages className="w-4 h-4" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="end" className="w-48 p-1 max-h-[70vh] overflow-auto">
-                {languages.map((lang) => (
+              <PopoverContent align="end" className="w-48 p-1">
+                {languages.filter(l => l.code === 'en' || l.code === 'fr').map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
@@ -398,12 +378,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* Landing: hero + audience */}
-      <Hero onScrollToTool={scrollToTool} />
-      <Audience />
-
       {/* Main content (the tool) */}
-      <main ref={toolRef} className="max-w-6xl mx-auto px-6 py-16 newsprint-texture scroll-mt-4">
+      <main className="flex-1 overflow-auto max-w-6xl w-full mx-auto px-6 pt-4 pb-4">
         {/* Custom detection labels — only supported by GLiNER (zero-shot). BardS.ai has a fixed label set. */}
         {activeProvider !== 'bardsai' && (
         <div className="mb-6">
@@ -468,6 +444,34 @@ export default function App() {
         </div>
         )}
 
+        {/* Tab bar */}
+        <div className="flex border-b border-[#A8A498]">
+          <button
+            onClick={() => setActiveTab('documents')}
+            className={`px-6 py-3 text-xs font-medium uppercase tracking-widest border-b-2 transition-colors cursor-pointer ${
+              activeTab === 'documents'
+                ? 'border-[#111111] text-[#111111] bg-white'
+                : 'border-transparent text-[#707070] hover:text-[#111111]'
+            }`}
+          >
+            Documents
+          </button>
+          <button
+            onClick={() => setActiveTab('spreadsheets')}
+            className={`px-6 py-3 text-xs font-medium uppercase tracking-widest border-b-2 transition-colors cursor-pointer ${
+              activeTab === 'spreadsheets'
+                ? 'border-[#111111] text-[#111111] bg-white'
+                : 'border-transparent text-[#707070] hover:text-[#111111]'
+            }`}
+          >
+            Spreadsheets
+          </button>
+        </div>
+
+        <div className={activeTab === 'spreadsheets' ? '' : 'hidden'}>
+          <ExcelTool />
+        </div>
+        <div className={activeTab === 'documents' ? '' : 'hidden'}>
         {/* File bar — input file (left) + download (right) */}
         {docxFileName && anonymizedText && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-b-0 border-[#A8A498] bg-[#F4F3EE] shadow-[0_2px_24px_-6px_rgba(17,17,17,0.08)]">
@@ -508,7 +512,7 @@ export default function App() {
             <div className="w-full border-t border-[#E5E5E0]" />
             <Button
               onClick={anonymize}
-              disabled={!inputText.trim() || !modelLoaded || anonymizing}
+              disabled={!inputText.trim() || anonymizing}
               size="lg"
               className="gap-2 px-12 py-4 text-sm uppercase tracking-[0.15em] font-semibold bg-[#111111] text-[#F9F9F7] hover:bg-[#222222] hover:text-[#F9F9F7] transition-colors disabled:bg-[#111111]/55 disabled:text-[#F9F9F7] disabled:cursor-not-allowed"
             >
@@ -560,48 +564,22 @@ export default function App() {
             />
           </div>
         )}
+        </div>
       </main>
 
-      {/* Landing: how it works + FAQ */}
-      <HowItWorks />
-      <FAQ />
-
       {/* Footer */}
-      <footer className="border-t-2 border-[#111111] bg-[#F9F9F7] px-6 py-5">
-        <div className="max-w-6xl mx-auto flex flex-col items-start gap-3">
-          <div className="flex items-start gap-2.5">
-            <Lock className="w-3.5 h-3.5 text-[#111111] shrink-0 -translate-y-px" />
-            <p className="label-meta text-[#111111] leading-tight">{t.footer.offlineMessage}</p>
-          </div>
+      <footer className="border-t border-[#E5E5E0] bg-[#F9F9F7] px-6 py-2">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
           <a
             href="https://github.com/WLojek/DocCloak"
             target="_blank"
             rel="noopener noreferrer"
-            className="label-meta text-[#111111] hover:underline flex items-center gap-2.5 leading-none"
+            className="label-meta text-[#525252] hover:text-[#111111] flex items-center gap-2"
           >
-            <Github className="w-3.5 h-3.5 shrink-0 -translate-y-px" />
-            <span>Open source on GitHub · AGPL-3.0</span>
+            <Github className="w-3 h-3" />
+            <span>GitHub</span>
           </a>
-          <div className="relative">
-            <button
-              onClick={() => setFooterTooltipOpen(!footerTooltipOpen)}
-              className="label-meta text-[#111111] hover:underline cursor-pointer flex items-center gap-2.5 leading-none text-left"
-            >
-              <Info className="w-3.5 h-3.5 shrink-0 -translate-y-px" />
-              {t.footer.verifyText}
-            </button>
-            {footerTooltipOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setFooterTooltipOpen(false)} />
-                <div className="absolute bottom-full right-0 mb-2 z-50 bg-[#111111] text-[#F9F9F7] p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] max-w-xs">
-                  <p className="text-xs font-sans leading-relaxed">{t.footer.verifyTooltip}</p>
-                </div>
-              </>
-            )}
-          </div>
-          <p className="label-meta text-muted-foreground/80 leading-none mt-2 pt-3 border-t border-[#E5E5E0] w-full">
-            © {new Date().getFullYear()} DocCloak · Built by Witold Łojek
-          </p>
+          <p className="label-meta text-muted-foreground/60">AGPL-3.0</p>
         </div>
       </footer>
     </div>

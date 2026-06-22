@@ -262,7 +262,7 @@ export function TextInput({ value, onChange, onClear, entities, onAddEntity, onR
             })}
           </div>
         ) : docxFileName ? (
-          /* Loaded docx file — read-only text preview */
+          /* Loaded file — read-only text preview */
           <div className="p-4 text-sm leading-relaxed whitespace-pre-wrap break-words text-foreground font-light overflow-auto max-h-[60vh]">
             {/* File loaded banner */}
             <div className="flex items-center gap-3 mb-4 px-3 py-2.5 bg-[#111111]/5 border border-[#E5E5E0]">
@@ -295,14 +295,14 @@ export function TextInput({ value, onChange, onClear, entities, onAddEntity, onR
               style={{ fieldSizing: 'content' } as React.CSSProperties}
             />
             {/* Upload section — only visible when empty */}
-            {showEmptyState && onLoadDocx && (
+            {(showEmptyState && onLoadDocx) && (
               <>
                 <div className="flex items-center gap-3 px-4">
                   <div className="flex-1 border-t border-[#E5E5E0]" />
                   <span className="text-[10px] text-muted-foreground/60 uppercase tracking-widest font-medium">{t.textInput.dropzoneOr}</span>
                   <div className="flex-1 border-t border-[#E5E5E0]" />
                 </div>
-                <div className="px-4 py-3">
+                <div className="px-4 py-3 space-y-3">
                   <button
                     onClick={() => fileInputRef.current?.click()}
                     className="w-full flex items-center gap-4 p-4 border border-dashed border-[#E5E5E0] hover:border-[#111111]/40 transition-all cursor-pointer group"

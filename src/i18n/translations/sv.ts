@@ -82,6 +82,8 @@ export const sv: Translations = {
     selectToTag: 'Markera text för att tagga manuellt',
     uploadDocx: 'Ladda upp dokument',
     uploadDocxSub: '.doc / .docx — formatering bevaras',
+    uploadXlsx: 'Ladda upp kalkylark',
+    uploadXlsxSub: '.xlsx — kolumner och rader bevaras',
     pasteText: 'Klistra in text',
     pasteTextSub: 'Kopiera och klistra in från valfri källa',
     loadedFile: (name) => `Inläst: ${name}`,

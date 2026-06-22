@@ -82,6 +82,8 @@ export const fr: Translations = {
     selectToTag: 'Sélectionnez du texte pour le taguer manuellement',
     uploadDocx: 'Importer un document',
     uploadDocxSub: '.doc / .docx — mise en forme préservée',
+    uploadXlsx: 'Importer un tableur',
+    uploadXlsxSub: '.xlsx — colonnes et lignes préservées',
     pasteText: 'Coller du texte',
     pasteTextSub: 'Copiez et collez depuis n\'importe quelle source',
     loadedFile: (name) => `Chargé : ${name}`,
