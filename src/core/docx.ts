@@ -79,19 +79,54 @@ function extractTextFromXml(xmlDoc: Document): {
         paragraphBreaks.push({ flatIndex: flatText.length });
         flatText += '\n';
       }
-      // Get all w:t elements within this paragraph's runs
-      const tElements = para.getElementsByTagNameNS(W_NS, 't');
-      for (let ti = 0; ti < tElements.length; ti++) {
-        const tEl = tElements[ti];
-        const text = tEl.textContent ?? '';
+      processParaChildren(para);
+    }
+  }
+
+  function processParaChildren(para: Element) {
+    for (let ci = 0; ci < para.childNodes.length; ci++) {
+      const child = para.childNodes[ci];
+      if (child.nodeType !== 1) continue;
+      const el = child as Element;
+      if (el.namespaceURI !== W_NS) continue;
+
+      if (el.localName === 'r') {
+        processRun(el);
+      } else if (el.localName === 'hyperlink') {
+        for (let hi = 0; hi < el.childNodes.length; hi++) {
+          const hc = el.childNodes[hi];
+          if (hc.nodeType !== 1) continue;
+          const hce = hc as Element;
+          if (hce.namespaceURI === W_NS && hce.localName === 'r') {
+            processRun(hce);
+          }
+        }
+      }
+    }
+  }
+
+  function processRun(run: Element) {
+    for (let ri = 0; ri < run.childNodes.length; ri++) {
+      const child = run.childNodes[ri];
+      if (child.nodeType !== 1) continue;
+      const el = child as Element;
+      if (el.namespaceURI !== W_NS) continue;
+
+      if (el.localName === 't') {
+        const text = el.textContent ?? '';
         if (text.length > 0) {
           textNodes.push({
-            element: tEl,
+            element: el,
             flatStart: flatText.length,
             flatEnd: flatText.length + text.length,
           });
           flatText += text;
         }
+      } else if (el.localName === 'br') {
+        paragraphBreaks.push({ flatIndex: flatText.length });
+        flatText += '\n';
+      } else if (el.localName === 'tab') {
+        flatText += '\t';
       }
     }
   }

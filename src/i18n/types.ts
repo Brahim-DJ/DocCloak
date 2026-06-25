@@ -148,6 +148,40 @@ export interface Translations {
     title: string;
     description: string;
   };
+  spreadsheet: {
+    anonymizeTab: string;
+    restoreTab: string;
+    uploadHeading: string;
+    uploadSubtitle: string;
+    uploadButton: string;
+    anonymizeSelected: string;
+    downloadRedacted: string;
+    entriesRedacted: (count: number) => string;
+    clear: string;
+    selectColumns: string;
+    redactedValues: string;
+    selectAll: string;
+    deselectAll: string;
+    showingRows: (shown: number, total: number) => string;
+    rowColCount: (rows: number, cols: number) => string;
+    colLabel: (n: number) => string;
+    pasteSubTab: string;
+    uploadSubTab: string;
+    pasteDescription: string;
+    pastePlaceholder: string;
+    restoreButton: string;
+    restoreLabel: string;
+    uploadDescription: string;
+    downloadRestored: string;
+    restoring: string;
+    uploadRedacted: string;
+    unsupportedFormat: string;
+    failedToRead: string;
+    failedToRestore: string;
+    downloaded: string;
+    exportFailed: string;
+    copied: string;
+  };
   landing: {
     hero: {
       titleBefore: string;
