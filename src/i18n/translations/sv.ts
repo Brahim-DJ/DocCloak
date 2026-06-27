@@ -1,12 +1,16 @@
 import type { Translations } from '../types.ts';
 
 export const sv: Translations = {
+  nav: {
+    spreadsheets: 'Kalkylark',
+    documents: 'Dokument',
+  },
   header: {
     ready: 'Redo',
     notReady: 'Laddar',
     error: 'Fel',
     offline: 'Offline',
-    edition: 'Privat utgåva',
+    edition: '',
   },
   settings: {
     detectionSensitivity: 'Detektionskänslighet',
@@ -168,7 +172,7 @@ export const sv: Translations = {
     undo: 'Ångra',
   },
   loading: {
-    settingUp: 'Konfigurerar DocCloak',
+    settingUp: 'Konfigurerar Be Anonymized',
     preparingEngine: 'Förbereder dokumentskyddsmotorn...',
     initializing: 'Initierar...',
     oneTimeSetup: 'Engångsinstallation. Cachas för framtida sessioner.',
@@ -245,27 +249,27 @@ export const sv: Translations = {
       step1Title: 'Klistra in eller ladda upp',
       step1Body: 'Släpp ditt dokument, avtal eller dina anteckningar. Eller klistra in ren text. Vi stöder .doc och .docx med fullständig formatering bevarad.',
       step2Title: 'Identifiera och granska',
-      step2Body: 'DocCloaks lokala ML-modell hittar namn, e-postadresser, telefonnummer, adresser och över 12 andra typer av PII. Du kan redigera alla träffar innan du går vidare. Behöver du en annan modell, språkregion eller känslighet? Öppna inställningarna via kugghjulsikonen i sidhuvudet.',
+      step2Body: 'Be Anonymizeds lokala ML-modell hittar namn, e-postadresser, telefonnummer, adresser och över 12 andra typer av PII. Du kan redigera alla träffar innan du går vidare. Behöver du en annan modell, språkregion eller känslighet? Öppna inställningarna via kugghjulsikonen i sidhuvudet.',
       step3Title: 'Skicka till AI',
       step3Body: 'Kopiera den anonymiserade texten till ChatGPT, Claude, Gemini eller någon annan AI-tjänst. De ser aldrig dina riktiga uppgifter.',
       step4Title: 'Återställ originalen',
-      step4Body: 'Klistra tillbaka AI:ns svar i DocCloak för att byta ut platshållarna mot originalnamnen. Arbetet är klart och uppgifterna stannade lokalt.',
+      step4Body: 'Klistra tillbaka AI:ns svar i Be Anonymized för att byta ut platshållarna mot originalnamnen. Arbetet är klart och uppgifterna stannade lokalt.',
     },
     faq: {
       eyebrow: 'Vanliga frågor',
       heading: 'Frågor du bör ställa',
       q1: 'Laddas mina uppgifter verkligen inte upp någonstans?',
-      a1: 'Korrekt. DocCloak körs helt i din webbläsare. PII-detekteringsmodellen laddas en gång (från ett publikt CDN), sedan sker allt lokalt. Du kan verifiera detta själv: öppna DevTools, gå till fliken Nätverk och se efter - det görs noll förfrågningar under anonymiseringen. Källkoden finns på GitHub under AGPL-3.0.',
+      a1: 'Korrekt. Be Anonymized körs helt i din webbläsare. PII-detekteringsmodellen laddas en gång (från ett publikt CDN), sedan sker allt lokalt. Du kan verifiera detta själv: öppna DevTools, gå till fliken Nätverk och se efter - det görs noll förfrågningar under anonymiseringen. Källkoden finns på GitHub under AGPL-3.0.',
       q2: 'Hur träffsäker är identifieringen?',
-      a2: 'DocCloak använder GLiNER- och BardS.ai-modeller som är tränade specifikt för PII-detektering, plus regex-mönster för 17 regioner (USA och 16 europeiska länder). För namn, e-post, telefonnummer och standardidentifierare är den mycket träffsäker. Du kan granska och redigera varje träff innan du delar den anonymiserade texten - ingenting automatiseras utan ditt godkännande.',
+      a2: 'Be Anonymized använder GLiNER- och BardS.ai-modeller som är tränade specifikt för PII-detektering, plus regex-mönster för 17 regioner (USA och 16 europeiska länder). För namn, e-post, telefonnummer och standardidentifierare är den mycket träffsäker. Du kan granska och redigera varje träff innan du delar den anonymiserade texten - ingenting automatiseras utan ditt godkännande.',
       q3: 'Kan jag använda detta för GDPR, HIPAA eller efterlevnadsarbete?',
-      a3: 'DocCloak är ett verktyg som hjälper dig att undvika att skicka PII till AI-tjänster från tredje part. Om din användning uppfyller en viss regulatorisk standard beror på hela ditt arbetsflöde, din organisations policyer och vilken typ av data det rör sig om. Vi rekommenderar att du betraktar DocCloak som ett lager i ditt integritetsarbete, inte som en komplett efterlevnadslösning. Att ingenting lämnar din webbläsare går att granska.',
+      a3: 'Be Anonymized är ett verktyg som hjälper dig att undvika att skicka PII till AI-tjänster från tredje part. Om din användning uppfyller en viss regulatorisk standard beror på hela ditt arbetsflöde, din organisations policyer och vilken typ av data det rör sig om. Vi rekommenderar att du betraktar Be Anonymized som ett lager i ditt integritetsarbete, inte som en komplett efterlevnadslösning. Att ingenting lämnar din webbläsare går att granska.',
       q4: 'Är det verkligen gratis?',
-      a4: 'Ja. Inga konton, ingen registrering, ingen betalvägg. DocCloak är öppen källkod under AGPL-3.0. Om du vill stödja projektet kan du stjärnmarkera repot på GitHub eller dela det med någon som behöver det.',
+      a4: 'Ja. Inga konton, ingen registrering, ingen betalvägg. Be Anonymized är öppen källkod under AGPL-3.0. Om du vill stödja projektet kan du stjärnmarkera repot på GitHub eller dela det med någon som behöver det.',
       q5: 'Vilka språk och format stöds?',
       a5: 'Gränssnittet finns på engelska, polska, tyska, franska, spanska, portugisiska, svenska och norska. Dokumentformat inkluderar ren text samt .doc och .docx med bevarad formatering. Detekteringsmodellerna fungerar på flera språk.',
       q6: 'Vad händer med mina filer när jag stänger fliken?',
-      a6: 'De är borta. DocCloak lagrar ingenting mellan sessioner - inga cookies, ingen localStorage med dokumentinnehåll, ingen IndexedDB-cache av din text. När du stänger fliken raderas allt. Det enda som sparas är dina inställningar (modellval, språk).',
+      a6: 'De är borta. Be Anonymized lagrar ingenting mellan sessioner - inga cookies, ingen localStorage med dokumentinnehåll, ingen IndexedDB-cache av din text. När du stänger fliken raderas allt. Det enda som sparas är dina inställningar (modellval, språk).',
     },
   },
 };

@@ -1,12 +1,16 @@
 import type { Translations } from '../types.ts';
 
 export const pl: Translations = {
+  nav: {
+    spreadsheets: 'Arkusze',
+    documents: 'Dokumenty',
+  },
   header: {
     ready: 'Gotowy',
     notReady: 'Ładowanie',
     error: 'Błąd',
     offline: 'Offline',
-    edition: 'Wydanie prywatne',
+    edition: '',
   },
   settings: {
     detectionSensitivity: 'Czułość wykrywania',
@@ -168,7 +172,7 @@ export const pl: Translations = {
   footer: {
     offlineMessage: 'Wszystko pozostaje w Twojej przeglądarce · Żadne dane nie są nigdzie wysyłane',
     verifyText: 'Weryfikacja: DevTools → Zakładka Sieć → zero żądań',
-    verifyTooltip: 'Otwórz DevTools przeglądarki (F12 lub Cmd+Option+I), przejdź do zakładki Sieć i potwierdź, że nie wysłano żadnych żądań podczas korzystania z DocCloak. Całe przetwarzanie odbywa się lokalnie.',
+    verifyTooltip: 'Otwórz DevTools przeglądarki (F12 lub Cmd+Option+I), przejdź do zakładki Sieć i potwierdź, że nie wysłano żadnych żądań podczas korzystania z Be Anonymized. Całe przetwarzanie odbywa się lokalnie.',
   },
   toast: {
     copiedToClipboard: 'Skopiowano do schowka',
@@ -176,7 +180,7 @@ export const pl: Translations = {
     undo: 'Cofnij',
   },
   loading: {
-    settingUp: 'Konfiguracja DocCloak',
+    settingUp: 'Konfiguracja Be Anonymized',
     preparingEngine: 'Przygotowywanie silnika ochrony dokumentów...',
     initializing: 'Inicjalizacja...',
     oneTimeSetup: 'Jednorazowa konfiguracja. Zapisywane w pamięci podręcznej.',
@@ -253,27 +257,27 @@ export const pl: Translations = {
       step1Title: 'Wklej lub prześlij',
       step1Body: 'Przeciągnij dokument, umowę lub notatki. Albo wklej zwykły tekst. Obsługujemy .doc oraz .docx z zachowaniem pełnego formatowania.',
       step2Title: 'Wykryj i sprawdź',
-      step2Body: 'Lokalny model ML w DocCloak znajduje nazwiska, adresy e-mail, numery telefonów, adresy oraz ponad 12 innych typów danych osobowych. Możesz edytować każde wykrycie przed kontynuacją. Potrzebujesz innego modelu, regionu językowego lub czułości? Otwórz ustawienia, klikając ikonę koła zębatego w nagłówku.',
+      step2Body: 'Lokalny model ML w Be Anonymized znajduje nazwiska, adresy e-mail, numery telefonów, adresy oraz ponad 12 innych typów danych osobowych. Możesz edytować każde wykrycie przed kontynuacją. Potrzebujesz innego modelu, regionu językowego lub czułości? Otwórz ustawienia, klikając ikonę koła zębatego w nagłówku.',
       step3Title: 'Wyślij do AI',
       step3Body: 'Skopiuj zanonimizowany tekst do ChatGPT, Claude, Gemini lub dowolnego innego narzędzia AI. Nigdy nie zobaczą Twoich prawdziwych danych.',
       step4Title: 'Przywróć oryginały',
-      step4Body: 'Wklej odpowiedź AI z powrotem do DocCloak, aby zamienić etykiety zastępcze na oryginalne nazwiska. Praca wykonana, dane pozostały lokalnie.',
+      step4Body: 'Wklej odpowiedź AI z powrotem do Be Anonymized, aby zamienić etykiety zastępcze na oryginalne nazwiska. Praca wykonana, dane pozostały lokalnie.',
     },
     faq: {
       eyebrow: 'Często zadawane',
       heading: 'Pytania, które warto zadać',
       q1: 'Czy moje dane naprawdę nigdzie nie są przesyłane?',
-      a1: 'Zgadza się. DocCloak działa w całości w Twojej przeglądarce. Model wykrywania danych osobowych ładuje się raz (z publicznego CDN), a potem wszystko odbywa się lokalnie. Możesz to zweryfikować samodzielnie: otwórz DevTools, przejdź do zakładki Network i obserwuj - podczas anonimizacji nie ma żadnych żądań. Kod źródłowy jest na GitHub na licencji AGPL-3.0.',
+      a1: 'Zgadza się. Be Anonymized działa w całości w Twojej przeglądarce. Model wykrywania danych osobowych ładuje się raz (z publicznego CDN), a potem wszystko odbywa się lokalnie. Możesz to zweryfikować samodzielnie: otwórz DevTools, przejdź do zakładki Network i obserwuj - podczas anonimizacji nie ma żadnych żądań. Kod źródłowy jest na GitHub na licencji AGPL-3.0.',
       q2: 'Jak dokładne jest wykrywanie?',
-      a2: 'DocCloak korzysta z modeli GLiNER i BardS.ai wytrenowanych specjalnie do wykrywania danych osobowych, a także ze wzorców regex dla 17 regionów (USA + 16 krajów europejskich). W przypadku nazwisk, e-maili, telefonów i standardowych identyfikatorów jest bardzo dokładny. Możesz przejrzeć i edytować każde wykrycie przed udostępnieniem zanonimizowanego tekstu - nic nie dzieje się automatycznie bez Twojej zgody.',
+      a2: 'Be Anonymized korzysta z modeli GLiNER i BardS.ai wytrenowanych specjalnie do wykrywania danych osobowych, a także ze wzorców regex dla 17 regionów (USA + 16 krajów europejskich). W przypadku nazwisk, e-maili, telefonów i standardowych identyfikatorów jest bardzo dokładny. Możesz przejrzeć i edytować każde wykrycie przed udostępnieniem zanonimizowanego tekstu - nic nie dzieje się automatycznie bez Twojej zgody.',
       q3: 'Czy mogę używać tego do pracy zgodnej z GDPR, HIPAA lub innymi regulacjami?',
-      a3: 'DocCloak to narzędzie, które pomaga unikać wysyłania danych osobowych do zewnętrznych usług AI. To, czy Twoje użycie spełnia konkretny wymóg regulacyjny, zależy od całego przepływu pracy, polityk Twojej organizacji i rodzaju danych. Zalecamy traktowanie DocCloak jako jednej z warstw w praktyce ochrony prywatności, a nie kompletnego rozwiązania zgodności. Fakt, że nic nie opuszcza przeglądarki, jest w pełni audytowalny.',
+      a3: 'Be Anonymized to narzędzie, które pomaga unikać wysyłania danych osobowych do zewnętrznych usług AI. To, czy Twoje użycie spełnia konkretny wymóg regulacyjny, zależy od całego przepływu pracy, polityk Twojej organizacji i rodzaju danych. Zalecamy traktowanie Be Anonymized jako jednej z warstw w praktyce ochrony prywatności, a nie kompletnego rozwiązania zgodności. Fakt, że nic nie opuszcza przeglądarki, jest w pełni audytowalny.',
       q4: 'Czy naprawdę jest darmowy?',
-      a4: 'Tak. Bez kont, bez rejestracji, bez opłat. DocCloak jest oprogramowaniem open source na licencji AGPL-3.0. Jeśli chcesz wesprzeć projekt, zostaw gwiazdkę repozytorium na GitHubie lub poleć go komuś, kto tego potrzebuje.',
+      a4: 'Tak. Bez kont, bez rejestracji, bez opłat. Be Anonymized jest oprogramowaniem open source na licencji AGPL-3.0. Jeśli chcesz wesprzeć projekt, zostaw gwiazdkę repozytorium na GitHubie lub poleć go komuś, kto tego potrzebuje.',
       q5: 'Jakie języki i formaty są obsługiwane?',
       a5: 'Interfejs jest dostępny w językach English, Polish, German, French, Spanish, Portuguese, Swedish i Norwegian. Obsługiwane formaty dokumentów to zwykły tekst oraz .doc i .docx z zachowaniem formatowania. Modele wykrywania działają w wielu językach.',
       q6: 'Co dzieje się z moimi plikami po zamknięciu karty?',
-      a6: 'Znikają. DocCloak nie przechowuje niczego między sesjami - żadnych plików cookie, żadnej zawartości dokumentów w localStorage, żadnej pamięci podręcznej tekstu w IndexedDB. Zamknięcie karty usuwa wszystko. Zapisywane są jedynie Twoje ustawienia (wybór modelu, język).',
+      a6: 'Znikają. Be Anonymized nie przechowuje niczego między sesjami - żadnych plików cookie, żadnej zawartości dokumentów w localStorage, żadnej pamięci podręcznej tekstu w IndexedDB. Zamknięcie karty usuwa wszystko. Zapisywane są jedynie Twoje ustawienia (wybór modelu, język).',
     },
   },
 };

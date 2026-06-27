@@ -6,7 +6,7 @@ import { useTranslation } from './i18n/LanguageContext.tsx';
 import { languages } from './i18n/translations/index.ts';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import { Languages, Check, Github } from 'lucide-react';
+import { Languages, Check } from 'lucide-react';
 import { useToast } from './ui/components/Toast.tsx';
 
 export default function App() {
@@ -49,7 +49,7 @@ export default function App() {
       URL.revokeObjectURL(url);
       showToast(t.textOutput.downloaded);
     } catch (err) {
-      console.error('[DocCloak] Export failed:', err);
+      console.error('[Be Anonymized] Export failed:', err);
       showToast(t.textOutput.exportFailed ?? 'Export failed.');
     } finally {
       setDownloading(false);
@@ -90,9 +90,9 @@ export default function App() {
   return (
     <div className="h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="px-6 py-2 border-b border-[#E5E5E0] bg-[#F9F9F7]/85 shrink-0">
+      <header className="px-6 py-2 border-b border-[#E8E8E5] bg-[#F7F7F7]/85 shrink-0">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="font-serif text-lg tracking-tight text-[#111111] font-medium">DocCloak</span>
+          <span className="font-display text-lg tracking-tight text-[#223159] font-medium">Be Anonymized</span>
           <div className="flex items-center gap-4">
             {/* Language switcher */}
             <Popover>
@@ -106,10 +106,10 @@ export default function App() {
                   <button
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-[#E5E5E0] transition-colors duration-200 flex items-center justify-between cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-sm hover:bg-[#E8E8E5] transition-colors duration-200 flex items-center justify-between cursor-pointer"
                   >
-                    <span className="text-[#111111]/80">{lang.nativeName}</span>
-                    {language === lang.code && <Check className="w-3.5 h-3.5 text-[#111111]" />}
+                    <span className="text-[#0E131B]/80">{lang.nativeName}</span>
+                    {language === lang.code && <Check className="w-3.5 h-3.5 text-[#223159]" />}
                   </button>
                 ))}
               </PopoverContent>
@@ -119,19 +119,19 @@ export default function App() {
             <nav className="flex items-center gap-1">
               <button
                 onClick={() => setActiveTab('spreadsheets')}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
-                  activeTab === 'spreadsheets' ? 'text-[#111111] bg-[#E5E5E0]' : 'text-[#707070] hover:text-[#111111]'
+                className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer rounded-md ${
+                  activeTab === 'spreadsheets' ? 'bg-[#223159] text-white' : 'text-[#52617A] hover:text-[#223159]'
                 }`}
               >
-                Spreadsheets
+                {t.nav.spreadsheets}
               </button>
               <button
                 onClick={() => setActiveTab('documents')}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
-                  activeTab === 'documents' ? 'text-[#111111] bg-[#E5E5E0]' : 'text-[#707070] hover:text-[#111111]'
+                className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer rounded-md ${
+                  activeTab === 'documents' ? 'bg-[#223159] text-white' : 'text-[#52617A] hover:text-[#223159]'
                 }`}
               >
-                Documents
+                {t.nav.documents}
               </button>
             </nav>
           </div>
@@ -189,15 +189,6 @@ export default function App() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-[#E5E5E0] bg-[#F9F9F7] px-6 py-2 shrink-0">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <a href="https://github.com/WLojek/DocCloak" target="_blank" rel="noopener noreferrer" className="label-meta text-[#525252] hover:text-[#111111] flex items-center gap-2">
-            <Github className="w-3 h-3" /> GitHub
-          </a>
-          <p className="label-meta text-muted-foreground/60">AGPL-3.0</p>
-        </div>
-      </footer>
     </div>
   );
 }

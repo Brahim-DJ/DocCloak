@@ -55,8 +55,16 @@ export async function readXlsx(file: File): Promise<XlsxExtraction> {
       rawRows.push(cells);
     }
 
-    const headers = rawRows.length > 0 ? rawRows[0] : [];
-    const rows = rawRows.slice(1).filter((r) => r.some((c) => c.length > 0));
+    let startRow = 0;
+    if (worksheet['!merges']) {
+      const colCount = range.e.c - range.s.c + 1;
+      const titleMerge = worksheet['!merges'].find(
+        (m) => m.s.r === 0 && m.s.c === 0 && m.e.r === 0 && m.e.c - m.s.c + 1 === colCount,
+      );
+      if (titleMerge) startRow = 1;
+    }
+    const headers = rawRows.length > startRow ? rawRows[startRow] : [];
+    const rows = rawRows.slice(startRow + 1).filter((r) => r.some((c) => c.length > 0));
 
     sheets.push({ name: sheetName, headers, rows });
   }

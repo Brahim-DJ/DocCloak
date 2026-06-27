@@ -64,7 +64,7 @@ export function RestoreView({ sessionRef }: Props) {
       setRedactedFile(file);
       setRestoredBlob(blob);
     } catch (err) {
-      console.error('[DocCloak] Failed to restore xlsx:', err);
+      console.error('[Be Anonymized] Failed to restore xlsx:', err);
       showToast(t.spreadsheet.failedToRestore);
     } finally {
       setRestoring(false);
@@ -89,11 +89,11 @@ export function RestoreView({ sessionRef }: Props) {
   return (
     <div className="flex flex-col h-full">
       {/* Sub-tab bar */}
-      <div className="flex border-b border-[#E5E5E0] bg-[#F9F9F7] shrink-0">
+      <div className="flex border-b border-[#D4D4D0] bg-[#F7F7F7] shrink-0">
         <button
           onClick={() => setSubTab('paste')}
           className={`px-5 py-2.5 text-xs font-medium border-b-2 transition-colors cursor-pointer ${
-            subTab === 'paste' ? 'border-[#111111] text-[#111111] bg-white' : 'border-transparent text-[#707070] hover:text-[#111111]'
+            subTab === 'paste' ? 'border-[#223159] text-[#0E131B] bg-white' : 'border-transparent text-[#52617A] hover:text-[#0E131B]'
           }`}
         >
           {t.spreadsheet.pasteSubTab}
@@ -101,7 +101,7 @@ export function RestoreView({ sessionRef }: Props) {
         <button
           onClick={() => setSubTab('upload')}
           className={`px-5 py-2.5 text-xs font-medium border-b-2 transition-colors cursor-pointer ${
-            subTab === 'upload' ? 'border-[#111111] text-[#111111] bg-white' : 'border-transparent text-[#707070] hover:text-[#111111]'
+            subTab === 'upload' ? 'border-[#223159] text-[#0E131B] bg-white' : 'border-transparent text-[#52617A] hover:text-[#0E131B]'
           }`}
         >
           {t.spreadsheet.uploadSubTab}
@@ -112,25 +112,25 @@ export function RestoreView({ sessionRef }: Props) {
       <div className="flex-1 overflow-auto p-6">
         {subTab === 'paste' ? (
           <div className="max-w-2xl mx-auto">
-            <p className="text-xs font-medium text-[#111111] mb-3">{t.spreadsheet.pasteDescription}</p>
+            <p className="text-xs font-medium text-[#0E131B] mb-3">{t.spreadsheet.pasteDescription}</p>
             <textarea
               value={pasteInput}
               onChange={(e) => setPasteInput(e.target.value)}
               placeholder={t.spreadsheet.pastePlaceholder}
-              className="w-full bg-transparent border border-[#E5E5E0] p-4 text-sm text-[#111111] placeholder:text-[#707070] resize-none focus:outline-none focus:border-[#111111] min-h-[200px] font-light"
+              className="w-full bg-transparent border border-[#D4D4D0] p-4 text-sm text-[#0E131B] placeholder:text-[#52617A] resize-none focus:outline-none focus:border-[#223159] min-h-[200px] font-light"
             />
             <div className="flex items-center gap-3 mt-3">
               <button
                 onClick={handleRestoreText}
                 disabled={!pasteInput.trim()}
-                className="px-5 py-2 text-xs font-medium bg-[#111111] text-[#F9F9F7] hover:bg-[#222222] transition-colors disabled:bg-[#111111]/55 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2 text-xs font-medium bg-[#223159] text-[#FAFAFA] hover:bg-[#1A2648] transition-colors disabled:bg-[#223159]/55 disabled:cursor-not-allowed cursor-pointer"
               >
                 {t.spreadsheet.restoreButton}
               </button>
               {pasteResult && (
                 <button
                   onClick={handleCopyResult}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium border border-[#C8C5BC] text-[#525252] hover:text-[#111111] hover:border-[#111111] transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium border border-[#D4D4D0] text-[#52617A] hover:text-[#0E131B] hover:border-[#223159] transition-colors cursor-pointer"
                 >
                   <Copy className="w-3 h-3" /> {t.spreadsheet.copied}
                 </button>
@@ -138,8 +138,8 @@ export function RestoreView({ sessionRef }: Props) {
             </div>
             {pasteResult && (
               <div className="mt-6">
-                <p className="text-xs font-medium text-[#111111] mb-2">{t.spreadsheet.restoreLabel}</p>
-                <div className="border border-[#E5E5E0] p-4 text-sm leading-relaxed whitespace-pre-wrap break-words text-foreground font-light max-h-[400px] overflow-auto">
+                <p className="text-xs font-medium text-[#0E131B] mb-2">{t.spreadsheet.restoreLabel}</p>
+                <div className="border border-[#D4D4D0] p-4 text-sm leading-relaxed whitespace-pre-wrap break-words text-foreground font-light max-h-[400px] overflow-auto">
                   {pasteResult}
                 </div>
               </div>
@@ -147,23 +147,23 @@ export function RestoreView({ sessionRef }: Props) {
           </div>
         ) : (
           <div className="max-w-md mx-auto">
-            <p className="text-xs font-medium text-[#111111] mb-3">{t.spreadsheet.uploadDescription}</p>
+            <p className="text-xs font-medium text-[#0E131B] mb-3">{t.spreadsheet.uploadDescription}</p>
             <input ref={restoreFileInputRef} type="file" accept=".xlsx" onChange={handleRestoreFile} className="hidden" />
             {redactedFile && restoredBlob ? (
-              <div className="flex items-center justify-between px-3 py-2.5 border border-[#E5E5E0] bg-[#F9F9F7]">
+              <div className="flex items-center justify-between px-3 py-2.5 border border-[#D4D4D0] bg-[#F7F7F7]">
                 <div className="flex items-center gap-2 min-w-0">
-                  <FileSpreadsheet className="w-4 h-4 text-[#525252] shrink-0" />
-                  <span className="text-xs text-[#111111] truncate">{redactedFile.name}</span>
+                  <FileSpreadsheet className="w-4 h-4 text-[#52617A] shrink-0" />
+                  <span className="text-xs text-[#0E131B] truncate">{redactedFile.name}</span>
                   <button
                     onClick={() => { setRedactedFile(null); setRestoredBlob(null); }}
-                    className="text-muted-foreground hover:text-[#CC0000] transition-colors cursor-pointer"
+                    className="text-muted-foreground hover:text-[#DC2626] transition-colors cursor-pointer"
                   >
                     <X className="w-3 h-3" />
                   </button>
                 </div>
                 <button
                   onClick={handleRestoreDownload}
-                  className="flex items-center gap-1.5 px-3 py-1.5 border border-[#C8C5BC] bg-[#FFFFFF] text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7] transition-colors cursor-pointer text-xs font-medium"
+                  className="flex items-center gap-1.5 px-3 py-1.5 border border-[#D4D4D0] bg-[#FFFFFF] text-[#0E131B] hover:bg-[#223159] hover:text-[#FAFAFA] transition-colors cursor-pointer text-xs font-medium"
                 >
                   <Download className="w-3 h-3" />
                   {t.spreadsheet.downloadRestored}
@@ -173,7 +173,7 @@ export function RestoreView({ sessionRef }: Props) {
               <button
                 onClick={() => restoreFileInputRef.current?.click()}
                 disabled={restoring}
-                className="w-full flex items-center justify-center gap-2 px-4 py-6 border border-dashed border-[#C8C5BC] hover:border-[#111111]/40 text-xs text-[#525252] hover:text-[#111111] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 px-4 py-6 border border-dashed border-[#D4D4D0] hover:border-[#223159]/40 text-xs text-[#52617A] hover:text-[#0E131B] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {restoring ? (
                   <>{t.spreadsheet.restoring}</>

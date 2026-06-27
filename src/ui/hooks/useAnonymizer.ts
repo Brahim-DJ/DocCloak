@@ -66,7 +66,7 @@ export function useAnonymizer() {
         setDownloadProgress(null);
         setCustomLabelsState(getCustomLabels());
       } catch (err) {
-        console.error('[DocCloak] Model loading failed:', err);
+        console.error('[Be Anonymized] Model loading failed:', err);
         setModelLoading(false);
         setModelError(true);
         setDownloadProgress(null);
@@ -99,7 +99,7 @@ export function useAnonymizer() {
         setDetectionProgress(null);
       }
     } catch (err) {
-      console.error('[DocCloak] Detection failed:', err);
+      console.error('[Be Anonymized] Detection failed:', err);
       if (requestId === latestRequestRef.current) {
         setAnonymizing(false);
         setDetectionProgress(null);
@@ -272,7 +272,7 @@ export function useAnonymizer() {
       sessionRef.current.clear();
       return { success: true };
     } catch (err) {
-      console.error('[DocCloak] Failed to read file:', err);
+      console.error('[Be Anonymized] Failed to read file:', err);
       return { success: false, error: err instanceof Error ? err.message : String(err) };
     }
   }, []);

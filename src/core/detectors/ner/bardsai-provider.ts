@@ -47,7 +47,7 @@ const ID2LABEL: Record<number, string> = {
   66: 'I-SEXUAL_ORIENTATION', 67: 'I-TRADE_UNION_MEMBERSHIP', 68: 'I-VEHICLE_IDENTIFIER',
 };
 
-/** Map bardsai entity labels → DocCloak EntityType */
+/** Map bardsai entity labels → Be Anonymized EntityType */
 const LABEL_TO_ENTITY_TYPE: Record<string, EntityType> = {
   PERSON_NAME: 'PERSON',
   PERSON_ALIAS: 'PERSON',
@@ -163,7 +163,7 @@ export class BardsaiProvider implements DetectionProvider {
       // Revoke blob URL — ONNX Runtime has already read the data into WASM heap
       URL.revokeObjectURL(blobUrl);
 
-      console.info(`[DocCloak] Model loaded: ${this._name} | inputs: [${this.session.inputNames.join(', ')}] | outputs: [${this.session.outputNames.join(', ')}]`);
+      console.info(`[Be Anonymized] Model loaded: ${this._name} | inputs: [${this.session.inputNames.join(', ')}] | outputs: [${this.session.outputNames.join(', ')}]`);
 
       this.loadCallbacks.forEach((cb) => cb());
       this.loadCallbacks.length = 0;
@@ -431,7 +431,7 @@ export class BardsaiProvider implements DetectionProvider {
   private async fetchModelWithProgress(url: string): Promise<string> {
     let cache: Cache | null = null;
     try {
-      cache = await caches.open('doccloak-models');
+      cache = await caches.open('be-anonymized-models');
     } catch {
       // Cache API unavailable (e.g. private mode with strict storage). Proceed without caching.
     }
@@ -491,6 +491,6 @@ async function tryCachePut(cache: Cache | null, url: string, blob: Blob): Promis
   try {
     await cache.put(url, new Response(blob));
   } catch (err) {
-    console.warn('[DocCloak] Model cache put failed (model still loaded in memory):', err);
+    console.warn('[Be Anonymized] Model cache put failed (model still loaded in memory):', err);
   }
 }

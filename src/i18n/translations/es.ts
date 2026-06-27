@@ -1,12 +1,16 @@
 import type { Translations } from '../types.ts';
 
 export const es: Translations = {
+  nav: {
+    spreadsheets: 'Hojas de cálculo',
+    documents: 'Documentos',
+  },
   header: {
     ready: 'Listo',
     notReady: 'Cargando',
     error: 'Error',
     offline: 'Sin conexión',
-    edition: 'Edición privada',
+    edition: '',
   },
   settings: {
     detectionSensitivity: 'Sensibilidad de detección',
@@ -168,7 +172,7 @@ export const es: Translations = {
     undo: 'Deshacer',
   },
   loading: {
-    settingUp: 'Configurando DocCloak',
+    settingUp: 'Configurando Be Anonymized',
     preparingEngine: 'Preparando el motor de protección de documentos...',
     initializing: 'Inicializando...',
     oneTimeSetup: 'Configuración única. Se guarda en caché para futuras sesiones.',
@@ -245,27 +249,27 @@ export const es: Translations = {
       step1Title: 'Pegue o cargue',
       step1Body: 'Arrastre su documento, contrato o notas. O pegue el texto directamente. Admitimos archivos .doc y .docx conservando todo el formato.',
       step2Title: 'Detecte y revise',
-      step2Body: 'El modelo de ML local de DocCloak identifica nombres, correos electrónicos, números de teléfono, direcciones y más de 12 tipos de PII. Puede editar cualquier detección antes de continuar. ¿Necesita un modelo, región de idioma o sensibilidad diferentes? Abra la configuración mediante el icono de engranaje en la cabecera.',
+      step2Body: 'El modelo de ML local de Be Anonymized identifica nombres, correos electrónicos, números de teléfono, direcciones y más de 12 tipos de PII. Puede editar cualquier detección antes de continuar. ¿Necesita un modelo, región de idioma o sensibilidad diferentes? Abra la configuración mediante el icono de engranaje en la cabecera.',
       step3Title: 'Envíelo a la IA',
       step3Body: 'Copie el texto anonimizado en ChatGPT, Claude, Gemini o cualquier otro servicio de IA. Nunca verán sus datos reales.',
       step4Title: 'Restaure los originales',
-      step4Body: 'Pegue la respuesta de la IA de nuevo en DocCloak para sustituir los marcadores por los nombres originales. El trabajo está hecho y los datos permanecieron en local.',
+      step4Body: 'Pegue la respuesta de la IA de nuevo en Be Anonymized para sustituir los marcadores por los nombres originales. El trabajo está hecho y los datos permanecieron en local.',
     },
     faq: {
       eyebrow: 'Preguntas frecuentes',
       heading: 'Preguntas que debería hacerse',
       q1: '¿Es cierto que mis datos no se suben a ningún sitio?',
-      a1: 'Correcto. DocCloak se ejecuta íntegramente en su navegador. El modelo de detección de PII se carga una sola vez (desde un CDN público) y, a partir de ese momento, todo sucede en local. Puede comprobarlo usted mismo: abra DevTools, vaya a la pestaña Network y observe: no hay ninguna solicitud durante la anonimización. El código fuente está disponible en GitHub bajo la licencia AGPL-3.0.',
+      a1: 'Correcto. Be Anonymized se ejecuta íntegramente en su navegador. El modelo de detección de PII se carga una sola vez (desde un CDN público) y, a partir de ese momento, todo sucede en local. Puede comprobarlo usted mismo: abra DevTools, vaya a la pestaña Network y observe: no hay ninguna solicitud durante la anonimización. El código fuente está disponible en GitHub bajo la licencia AGPL-3.0.',
       q2: '¿Qué precisión tiene la detección?',
-      a2: 'DocCloak utiliza los modelos GLiNER y BardS.ai entrenados específicamente para la detección de PII, además de expresiones regulares para 17 regiones (EE. UU. y 16 países europeos). Para nombres, correos electrónicos, teléfonos e identificadores estándar la precisión es muy alta. Puede revisar y editar cada detección antes de compartir el texto anonimizado: nada se automatiza sin su aprobación.',
+      a2: 'Be Anonymized utiliza los modelos GLiNER y BardS.ai entrenados específicamente para la detección de PII, además de expresiones regulares para 17 regiones (EE. UU. y 16 países europeos). Para nombres, correos electrónicos, teléfonos e identificadores estándar la precisión es muy alta. Puede revisar y editar cada detección antes de compartir el texto anonimizado: nada se automatiza sin su aprobación.',
       q3: '¿Puedo usarlo para cumplir con GDPR, HIPAA u otras normativas?',
-      a3: 'DocCloak es una herramienta que le ayuda a evitar enviar PII a servicios de IA de terceros. Si su uso concreto cumple o no con una normativa específica depende de todo su flujo de trabajo, de las políticas de su organización y del tipo de datos. Le recomendamos considerar DocCloak como una capa más de su estrategia de privacidad, no como una solución completa de cumplimiento. El hecho de que nada salga de su navegador es auditable.',
+      a3: 'Be Anonymized es una herramienta que le ayuda a evitar enviar PII a servicios de IA de terceros. Si su uso concreto cumple o no con una normativa específica depende de todo su flujo de trabajo, de las políticas de su organización y del tipo de datos. Le recomendamos considerar Be Anonymized como una capa más de su estrategia de privacidad, no como una solución completa de cumplimiento. El hecho de que nada salga de su navegador es auditable.',
       q4: '¿Es realmente gratuito?',
-      a4: 'Sí. Sin cuentas, sin registro, sin muros de pago. DocCloak es un proyecto de código abierto bajo licencia AGPL-3.0. Si desea apoyarlo, dé una estrella al repositorio en GitHub o compártalo con alguien que lo necesite.',
+      a4: 'Sí. Sin cuentas, sin registro, sin muros de pago. Be Anonymized es un proyecto de código abierto bajo licencia AGPL-3.0. Si desea apoyarlo, dé una estrella al repositorio en GitHub o compártalo con alguien que lo necesite.',
       q5: '¿Qué idiomas y formatos admite?',
       a5: 'La interfaz está disponible en inglés, polaco, alemán, francés, español, portugués, sueco y noruego. Los formatos de documento admitidos incluyen texto sin formato, .doc y .docx con el formato preservado. Los modelos de detección funcionan en varios idiomas.',
       q6: '¿Qué ocurre con mis archivos cuando cierro la pestaña?',
-      a6: 'Desaparecen. DocCloak no almacena nada entre sesiones: ni cookies, ni contenido de documentos en localStorage, ni caché de su texto en IndexedDB. Al cerrar la pestaña se elimina todo. Lo único que se guarda son sus preferencias (elección de modelo e idioma).',
+      a6: 'Desaparecen. Be Anonymized no almacena nada entre sesiones: ni cookies, ni contenido de documentos en localStorage, ni caché de su texto en IndexedDB. Al cerrar la pestaña se elimina todo. Lo único que se guarda son sus preferencias (elección de modelo e idioma).',
     },
   },
 };

@@ -8,7 +8,7 @@ interface LanguageContextValue {
   setLanguage: (code: string) => void;
 }
 
-const STORAGE_KEY = 'doccloak-lang';
+const STORAGE_KEY = 'be-anonymized-lang';
 
 function detectLanguage(): string {
   const stored = localStorage.getItem(STORAGE_KEY);

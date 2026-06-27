@@ -1,6 +1,10 @@
 import type { EntityType } from '../core/types.ts';
 
 export interface Translations {
+  nav: {
+    spreadsheets: string;
+    documents: string;
+  };
   header: {
     ready: string;
     notReady: string;

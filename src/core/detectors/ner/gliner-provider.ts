@@ -7,7 +7,7 @@ const DEFAULT_MODEL_URL = 'https://huggingface.co/knowledgator/gliner-pii-edge-v
 const DEFAULT_TOKENIZER_HF = 'knowledgator/gliner-pii-edge-v1.0';
 const DEFAULT_MODEL_NAME = 'GLiNER PII Edge';
 const WASM_PATH = import.meta.env.BASE_URL;
-const CUSTOM_LABELS_STORAGE_KEY = 'doccloak-custom-labels';
+const CUSTOM_LABELS_STORAGE_KEY = 'be-anonymized-custom-labels';
 
 const CLS_TOKEN_ID = 50281;
 const SEP_TOKEN_ID = 50282;
@@ -191,7 +191,7 @@ export class GlinerProvider implements DetectionProvider {
       // Revoke blob URL — ONNX Runtime has already read the data into WASM heap
       URL.revokeObjectURL(blobUrl);
 
-      console.info(`[DocCloak] Model loaded: ${this._name} | inputs: [${this.session.inputNames.join(', ')}] | outputs: [${this.session.outputNames.join(', ')}]`);
+      console.info(`[Be Anonymized] Model loaded: ${this._name} | inputs: [${this.session.inputNames.join(', ')}] | outputs: [${this.session.outputNames.join(', ')}]`);
 
       this.loadCallbacks.forEach((cb) => cb());
       this.loadCallbacks.length = 0;
@@ -379,7 +379,7 @@ export class GlinerProvider implements DetectionProvider {
   private async fetchModelWithProgress(url: string = DEFAULT_MODEL_URL): Promise<string> {
     let cache: Cache | null = null;
     try {
-      cache = await caches.open('doccloak-models');
+      cache = await caches.open('be-anonymized-models');
     } catch {
       // Cache API unavailable. Proceed without caching.
     }
@@ -440,6 +440,6 @@ async function tryCachePut(cache: Cache | null, url: string, blob: Blob): Promis
   try {
     await cache.put(url, new Response(blob));
   } catch (err) {
-    console.warn('[DocCloak] Model cache put failed (model still loaded in memory):', err);
+    console.warn('[Be Anonymized] Model cache put failed (model still loaded in memory):', err);
   }
 }

@@ -65,7 +65,7 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
               if (e.key === 'Enter') commitEdit();
               if (e.key === 'Escape') setEditingOriginal(null);
             }}
-            className="bg-[#E5E5E0] border border-[#111111] px-1.5 py-0.5 text-xs font-mono text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
+            className="bg-[#E8E8E5] border border-[#223159] px-1.5 py-0.5 text-xs font-mono text-[#0E131B] focus:outline-none focus:ring-1 focus:ring-[#223159]"
             style={{ width: `${Math.max(editValue.length + 1, 5)}ch` }}
           />
           <span className="text-muted-foreground/50">&gt;&gt;</span>
@@ -75,7 +75,7 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
     return (
       <span
         onClick={() => startEditing(entity.value, label)}
-        className="cursor-pointer hover:text-[#CC0000] transition-colors"
+        className="cursor-pointer hover:text-[#DC2626] transition-colors"
         title={t.entityTable.clickToRename}
       >
         {label}
@@ -89,15 +89,15 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
     <div className="mb-6">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-[#111111] text-[#F9F9F7] cursor-pointer hover:bg-[#222222] transition-colors duration-150"
+        className="w-full flex items-center justify-between px-4 py-3 bg-[#223159] text-[#FAFAFA] cursor-pointer hover:bg-[#1A2648] transition-colors duration-150"
       >
         <div>
-          <h3 className="label-meta text-[#F9F9F7] tracking-[0.15em]">
+          <h3 className="label-meta text-[#FAFAFA] tracking-[0.15em]">
             {t.entityTable.title(entities.length)}
           </h3>
         </div>
         <ChevronDown
-          className={`w-4 h-4 text-[#F9F9F7] transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-[#FAFAFA] transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
         />
       </button>
       <div
@@ -106,13 +106,13 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
       >
         <div className="overflow-hidden">
       <Card className="overflow-hidden border-t-0 mt-0">
-        <div className="px-4 py-2.5 bg-[#E5E5E0]/20 border-b border-[#E5E5E0]">
+        <div className="px-4 py-2.5 bg-[#E8E8E5]/20 border-b border-[#D4D4D0]">
           <p className="text-[11px] text-muted-foreground leading-relaxed">{t.entityTable.subtitle}</p>
         </div>
         {/* Desktop table */}
         <table className="w-full text-sm hidden md:table">
           <thead>
-            <tr className="border-b border-[#E5E5E0] bg-[#E5E5E0]/30">
+            <tr className="border-b border-[#D4D4D0] bg-[#E8E8E5]/30">
               <th className="text-left p-3 label-meta text-muted-foreground">{t.entityTable.type}</th>
               <th className="text-left p-3 label-meta text-muted-foreground">{t.entityTable.label}</th>
               <th className="text-left p-3 label-meta text-muted-foreground">{t.entityTable.originalValue}</th>
@@ -126,7 +126,7 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
               return (
                 <tr
                   key={`${entity.start}-${entity.value}`}
-                  className={`border-b border-[#E5E5E0] last:border-0 hover:bg-[#E5E5E0]/20 transition-colors ${
+                  className={`border-b border-[#D4D4D0] last:border-0 hover:bg-[#E8E8E5]/20 transition-colors ${
                     excluded ? 'opacity-40' : ''
                   }`}
                 >
@@ -151,10 +151,10 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
                   <td className="p-3 text-foreground font-mono text-xs">{entity.value}</td>
                   <td className="p-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-14 bg-[#E5E5E0] h-1.5 overflow-hidden">
+                      <div className="w-14 bg-[#E8E8E5] h-1.5 overflow-hidden">
                         <div
                           className={`h-full transition-all ${
-                            entity.confidence > 0.8 ? 'bg-[#2D6A4F]' : entity.confidence > 0.5 ? 'bg-[#B8860B]' : 'bg-[#CC0000]'
+                            entity.confidence > 0.8 ? 'bg-[#2D6A4F]' : entity.confidence > 0.5 ? 'bg-[#B8860B]' : 'bg-[#DC2626]'
                           }`}
                           style={{ width: `${Math.round(entity.confidence * 100)}%` }}
                         />
@@ -176,7 +176,7 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
         </table>
 
         {/* Mobile card layout */}
-        <div className="md:hidden divide-y divide-[#E5E5E0]">
+        <div className="md:hidden divide-y divide-[#D4D4D0]">
           {entities.map((entity, index) => {
             const excluded = excludedIndices.has(index);
             return (
@@ -205,10 +205,10 @@ export function EntityTable({ entities, entries, excludedIndices, onToggle, onRe
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground">{renderLabel(entity)}</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-10 bg-[#E5E5E0] h-1.5 overflow-hidden">
+                    <div className="w-10 bg-[#E8E8E5] h-1.5 overflow-hidden">
                       <div
                         className={`h-full ${
-                          entity.confidence > 0.8 ? 'bg-[#2D6A4F]' : entity.confidence > 0.5 ? 'bg-[#B8860B]' : 'bg-[#CC0000]'
+                          entity.confidence > 0.8 ? 'bg-[#2D6A4F]' : entity.confidence > 0.5 ? 'bg-[#B8860B]' : 'bg-[#DC2626]'
                         }`}
                         style={{ width: `${Math.round(entity.confidence * 100)}%` }}
                       />

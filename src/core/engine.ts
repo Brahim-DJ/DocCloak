@@ -22,20 +22,20 @@ export const PROVIDERS: ProviderEntry[] = [
   },
 ];
 
-const PROVIDER_STORAGE_KEY = 'doccloak-active-provider';
-const CUSTOM_LABELS_STORAGE_KEY = 'doccloak-custom-labels';
+const PROVIDER_STORAGE_KEY = 'be-anonymized-active-provider';
+const CUSTOM_LABELS_STORAGE_KEY = 'be-anonymized-custom-labels';
 
 // ── Acceleration setting ───────────────────────────────────
 export type AccelMode = 'auto' | 'webgpu' | 'wasm';
 
 export function getAccelMode(): AccelMode {
-  const saved = localStorage.getItem('doccloak-acceleration');
+  const saved = localStorage.getItem('be-anonymized-acceleration');
   if (saved === 'webgpu' || saved === 'wasm') return saved;
   return 'auto';
 }
 
 export function setAccelMode(mode: AccelMode): void {
-  localStorage.setItem('doccloak-acceleration', mode);
+  localStorage.setItem('be-anonymized-acceleration', mode);
 }
 
 export function getExecutionProviders(): { providers: string[]; isExplicit: boolean } {
@@ -86,7 +86,7 @@ function getWorker(): Worker {
     );
     worker.onmessage = handleWorkerMessage;
     worker.onerror = (e) => {
-      console.error('[DocCloak] Worker error:', e);
+      console.error('[Be Anonymized] Worker error:', e);
     };
   }
   return worker;
@@ -315,8 +315,8 @@ export function releaseModel(): Promise<void> {
   });
 }
 
-const REGEX_STORAGE_KEY = 'doccloak-regex-enabled';
-const REGEX_REGION_STORAGE_KEY = 'doccloak-regex-region';
+const REGEX_STORAGE_KEY = 'be-anonymized-regex-enabled';
+const REGEX_REGION_STORAGE_KEY = 'be-anonymized-regex-region';
 
 export const REGEX_REGIONS = [
   'all', 'gb', 'us', 'pl', 'de', 'fr', 'es', 'pt', 'se', 'no',

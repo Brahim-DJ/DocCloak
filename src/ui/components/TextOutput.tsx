@@ -76,12 +76,12 @@ export function TextOutput({ value, entries, loading }: TextOutputProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between h-11 relative border-b border-[#C8C5BC] px-4 bg-[#F4F3EE]">
-        <h3 className="font-serif text-sm text-[#111111] font-medium">
+      <div className="flex items-center justify-between h-11 relative border-b border-[#D4D4D0] px-4 bg-[#F7F7F7]">
+        <h3 className="font-display text-sm text-[#0E131B] font-medium">
           {t.textOutput.title}
         </h3>
         {value && (
-          <Button variant="ghost" size="sm" onClick={handleCopy} className="gap-1.5 h-7 text-[#525252] hover:bg-[#E5E5E0] hover:text-[#111111]">
+          <Button variant="ghost" size="sm" onClick={handleCopy} className="gap-1.5 h-7 text-[#52617A] hover:bg-[#E8E8E5] hover:text-[#0E131B]">
             {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
             {copied ? t.textOutput.copied : t.textOutput.copy}
           </Button>
@@ -100,7 +100,7 @@ export function TextOutput({ value, entries, loading }: TextOutputProps) {
           <>
             {renderHighlighted()}
             {/* Post-redaction hint */}
-            <div className="mt-6 pt-4 border-t border-[#E5E5E0]">
+            <div className="mt-6 pt-4 border-t border-[#D4D4D0]">
               <p className="text-[10px] text-[#2D6A4F]/70 flex items-center gap-1.5">
                 <Shield className="w-3 h-3" />
                 {t.textOutput.nextStepHint}
@@ -110,24 +110,24 @@ export function TextOutput({ value, entries, loading }: TextOutputProps) {
         ) : (
           /* Empty state: numbered guide */
           <div className="flex flex-col items-center justify-center h-full min-h-[160px] text-center px-4">
-            <div className="w-10 h-10 bg-[#F4F3EE] border border-[#C8C5BC] flex items-center justify-center mb-4">
-              <Shield className="w-5 h-5 text-[#525252]" />
+            <div className="w-10 h-10 bg-[#F7F7F7] border border-[#D4D4D0] flex items-center justify-center mb-4">
+              <Shield className="w-5 h-5 text-[#52617A]" />
             </div>
-            <p className="text-sm text-[#111111] font-medium mb-4 font-serif">{t.textOutput.emptyStateHint}</p>
+            <p className="text-sm text-[#0E131B] font-medium mb-4 font-display">{t.textOutput.emptyStateHint}</p>
             <div className="space-y-2 text-left w-full max-w-[220px]">
               {[t.textOutput.emptyStateStep1, t.textOutput.emptyStateStep2, t.textOutput.emptyStateStep3].map((step, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className="w-4 h-4 bg-[#111111] text-[#F9F9F7] flex items-center justify-center flex-shrink-0 text-[9px] font-bold mt-0.5">{i + 1}</span>
-                  <p className="text-xs text-[#525252] leading-relaxed">{step}</p>
+                  <span className="w-4 h-4 bg-[#223159] text-[#FAFAFA] flex items-center justify-center flex-shrink-0 text-[9px] font-bold mt-0.5">{i + 1}</span>
+                  <p className="text-xs text-[#52617A] leading-relaxed">{step}</p>
                 </div>
               ))}
             </div>
-            <p className="text-[11px] text-[#707070] leading-relaxed mt-4 max-w-[240px] italic">{t.textOutput.emptyStateTip}</p>
+            <p className="text-[11px] text-[#52617A] leading-relaxed mt-4 max-w-[240px] italic">{t.textOutput.emptyStateTip}</p>
           </div>
         )}
       </div>
       {/* Footer spacer */}
-      <div className="mt-auto border-t border-[#E5E5E0] px-4 py-2 bg-[#F5F5F3]">
+      <div className="mt-auto border-t border-[#D4D4D0] px-4 py-2 bg-[#F7F7F7]">
         <p className="label-meta text-muted-foreground">&nbsp;</p>
       </div>
     </div>

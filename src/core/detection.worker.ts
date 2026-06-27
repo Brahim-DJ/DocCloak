@@ -219,7 +219,7 @@ self.onmessage = async (e: MessageEvent<any>) => {
 
       // Clear cached model from previous provider
       try {
-        await caches.delete('doccloak-models');
+        await caches.delete('be-anonymized-models');
       } catch { /* ignore */ }
 
       activeId = providerId;

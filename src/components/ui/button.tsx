@@ -10,15 +10,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#111111] text-[#F9F9F7] border border-transparent hover:bg-[#F9F9F7] hover:text-[#111111] hover:border-[#111111]",
+          "bg-[#223159] text-[#FAFAFA] border border-transparent hover:bg-[#FAFAFA] hover:text-[#223159] hover:border-[#223159]",
         destructive:
-          "bg-[#CC0000] text-[#F9F9F7] hover:bg-[#AA0000]",
+          "bg-[#DC2626] text-[#FAFAFA] hover:bg-[#B91C1C]",
         outline:
-          "border border-[#111111] bg-transparent text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7]",
+          "border border-[#223159] bg-transparent text-[#223159] hover:bg-[#223159] hover:text-[#FAFAFA]",
         secondary:
-          "bg-[#E5E5E0] text-[#111111] hover:bg-[#D5D5D0]",
-        ghost: "hover:bg-[#E5E5E0] text-[#111111] transition-colors duration-200",
-        link: "text-[#111111] underline-offset-4 decoration-2 decoration-[#CC0000] hover:underline",
+          "bg-[#E8E8E5] text-[#0E131B] hover:bg-[#D4D4D0]",
+        ghost: "hover:bg-[#E8E8E5] text-[#0E131B] transition-colors duration-200",
+        link: "text-[#223159] underline-offset-4 decoration-2 decoration-[#AFD135] hover:underline",
       },
       size: {
         default: "h-11 px-5 py-2",
